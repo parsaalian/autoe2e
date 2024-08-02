@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+ <!ENTITY % BOOK_ENTITIES SYSTEM "Admin_Guide.ent">
+]>
+<section id="admin.config.uploads">
+	<title>File Upload</title>
+
+	<para>MantisBT allows users to upload file attachments and
+		associate them with bugs as well as projects. Bug attachments /
+		project documents can be uploaded to the webserver or database.
+		When bugs are uploaded to the webserver they are
+		uploaded to the path that is configured in the project
+		properties. In case of problems getting the file upload feature to
+		work, check the following resources:
+		<ulink url="https://www.php.net/manual/en/features.file-upload.php">PHP
+			Manual
+		</ulink>.
+	</para>
+
+	<variablelist>
+		<varlistentry>
+			<term>$g_allow_file_upload</term>
+			<listitem>
+				<para>Whether to allow/disallow uploading of attachments. Default
+					value is ON.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_file_upload_method</term>
+			<listitem>
+				<para>Specify the location for uploading attachments.
+					In case of DISK methods you need to provide the
+					webserver with write access rights to the configured upload path
+					(configured in the project) and temporary upload path (used by
+					PHP).
+				</para>
+				<para>Values: DISK or DATABASE (default)
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_dropzone_enabled</term>
+			<listitem>
+				<para>Whether to enable/disable drag and drop zone for uploading of attachments.
+					Default value is ON.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_file_upload_max_num</term>
+			<listitem>
+				<para>Maximum number of files that can be uploaded simultaneously.
+					Default value is 10.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_max_file_size</term>
+			<listitem>
+				<para>Maximum file size that can be uploaded.
+					Default value is about 5 MiB.
+					The maximum size is also affected by the PHP options
+					post_max_size (default 8 MiB), upload_max_filesize (default 2 MiB)
+					and memory_limit (default 128 MiB) specified in php.ini.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_allowed_files</term>
+			<listitem>
+				<para>Authorized file types (whitelist).</para>
+				<para>If $g_allowed_files is filled in, NO other file types will be allowed.
+					If empty, any extensions not specifically excluded by
+					<emphasis>$g_disallowed_files list</emphasis> will be authorized
+					($g_disallowed_files takes precedence over $g_allowed_files).
+					Separate items by commas, e.g.
+					<literal>'bmp,gif,jpg,png,txt,zip'</literal>.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_disallowed_files</term>
+			<listitem>
+				<para>Forbidden file types (blacklist).</para>
+				<para>All file extensions in this list will be unauthorized.
+					Separate items by commas, e.g.
+					<literal>'php,html,java,exe,pl,svg'</literal>.
+				</para>
+				<warning>
+					<para><ulink url="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG files</ulink>
+						are disabled by default, for security reasons.
+						It is recommended to also disable all extensions that
+						can be executed by your server.
+					</para>
+				</warning>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_preview_attachments_inline_max_size</term>
+			<listitem>
+				<para>This limit applies to previewing of image / text attachments.
+					If the attachment size is smaller than the specified value, the attachment
+					is previewed with the issue details.  The previewing can be disabled
+					by setting this configuration to 0.  The default value is 256 * 1024 (256KB).
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_preview_text_extensions</term>
+			<listitem>
+				<para>An array of file extensions (not including dots) for text files that can be previewed inline.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_preview_image_extensions</term>
+			<listitem>
+				<para>An array of file extensions (not including dots) for image files that can be previewed inline.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_fileinfo_magic_db_file</term>
+			<listitem>
+				<para>Specify the filename of the magic database file.
+					This is used by PHP to guess what the MIME type of a
+					file is. Usually it is safe to leave this setting as the
+					default (blank) as PHP is usually able to find this file
+					by itself.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_file_download_xsendfile_enabled</term>
+			<listitem>
+				<para>Enable support for sending files to users via a more efficient
+					X-Sendfile method. HTTP server software supporting this technique
+					includes Lighttpd, Cherokee, Apache with mod_xsendfile and nginx.
+					You may need to set the proceeding file_download_xsendfile_header_name
+					option to suit the server you are using.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_file_download_xsendfile_header_name</term>
+			<listitem>
+				<para>The name of the X-Sendfile header to use. Each server tends to
+					implement this functionality in a slightly different way and thus
+					the naming conventions for the header differ between each server.
+					Lighttpd from v1.5, Apache with mod_xsendfile and Cherokee web
+					servers use X-Sendfile. nginx uses X-Accel-Redirect and Lighttpd
+					v1.4 uses X-LIGHTTPD-send-file.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_attachments_file_permissions</term>
+			<listitem>
+				<para>When using DISK for storing uploaded files, this setting controls
+					the access permissions they will have on the web server: with the default
+					value (0400) files will be read-only, and accessible only by the user
+					running the apache process (probably "apache" in Linux and "Administrator"
+					in Windows).
+					For more details on unix style permissions:
+					<ulink url="https://en.wikipedia.org/wiki/Chmod">chmod on Wikipedia</ulink>
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_absolute_path_default_upload_folder</term>
+			<listitem>
+				<para>Absolute path to the default upload folder.  Requires trailing / or \.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_preview_max_width</term>
+			<listitem>
+				<para>Specifies the maximum width for the auto-preview feature. If no maximum
+					width should be imposed then it should be set to 0.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_preview_max_height</term>
+			<listitem>
+				<para>Specifies the maximum height for the auto-preview feature. If no maximum
+					height should be imposed then it should be set to 0.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_view_attachments_threshold</term>
+			<listitem>
+				<para>Access level needed to view bugs attachments.  View means to see the file
+					names, sizes, and timestamps of the attachments.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_download_attachments_threshold</term>
+			<listitem>
+				<para>Access level needed to download bug attachments.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_delete_attachments_threshold</term>
+			<listitem>
+				<para>Access level needed to delete bug attachments.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_allow_view_own_attachments</term>
+			<listitem>
+				<para>Allow users to view attachments uploaded by themselves even if their access
+					level is below view_attachments_threshold.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_allow_download_own_attachments</term>
+			<listitem>
+				<para>Allow users to download attachments uploaded by themselves even if their
+					access level is below download_attachments_threshold.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_allow_delete_own_attachments</term>
+			<listitem>
+				<para>Allow users to delete attachments uploaded by themselves even if their access
+					level is below delete_attachments_threshold.</para>
+			</listitem>
+		</varlistentry>
+	</variablelist>
+
+</section>

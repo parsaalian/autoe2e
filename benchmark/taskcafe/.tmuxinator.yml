@@ -1,0 +1,26 @@
+name: taskcafe
+root: .
+
+windows:
+  - services:
+      root: ./
+      panes:
+        - api:
+          - go run cmd/taskcafe/main.go web
+        - yarn:
+          - cd frontend
+          - yarn start
+        - worker:
+          - go run cmd/taskcafe/main.go worker
+  - web/editor:
+      root: ./frontend
+      panes:
+        - vim src/index.tsx
+  - api/editor:
+      root: ./
+      panes:
+        - vim cmd/taskcafe/main.go
+  - database:
+      root: ./
+      panes:
+        - pgcli postgres://taskcafe:taskcafe_test@localhost:8855/taskcafe

@@ -1,0 +1,89 @@
+<!--
+  ~ /*
+  ~  * Copyright 2016-2017 the original author or authors.
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *      http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+  -->
+
+<div class="container-fluid main-wrapper">
+  <nav class="navbar navbar-default " role="navigation">
+  <div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#"><span></span></a>
+  </div>
+
+  <ul class="nav navbar-nav">
+    <li>
+      <a routerLink="welcome" title="home page" (click)="log('c1-navbar-home')" data-testid="c1-navbar-home">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        <span> Home</span>
+      </a>
+    </li>
+
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+          aria-haspopup="true" aria-expanded="false" (click)="log('c2-navbar-owners')" data-testid="c2-navbar-owners">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Owners<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/owners" (click)="log('c3-navbar-owners-search')" data-testid="c3-navbar-owners-search"><span class="glyphicon glyphicon-search"
+                                          aria-hidden="true"></span><span> Search</span></a></li>
+        <li><a routerLink="/owners/add" (click)="log('c4-navbar-owners-add-new')" data-testid="c4-navbar-owners-add-new"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><span> Add New</span></a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+          aria-haspopup="true" aria-expanded="false" (click)="log('c5-navbar-vets')" data-testid="c5-navbar-vets">
+          <span class="glyphicon glyphicon-education" aria-hidden="true"></span> Veterinarians<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a routerLink="/vets" (click)="log('c6-navbar-vets-all')" data-testid="c6-navbar-vets-all"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span> All</span></a>
+        </li>
+        <li><a routerLink="/vets/add" (click)="log('c7-navbar-vets-add-new')" data-testid="c7-navbar-vets-add-new"><span class="glyphicon glyphicon-plus"
+                                            aria-hidden="true"></span><span> Add New</span></a></li>
+      </ul>
+    </li>
+    <li>
+      <a routerLink="/pettypes" routerLinkActive="active" title="pettypes" (click)="log('c8-navbar-pet-types')" data-testid="c8-navbar-pet-types">
+        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+        <span> Pet Types</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/specialties" routerLinkActive="active" title="specialties" (click)="log('c9-navbar-specialties')" data-testid="c9-navbar-specialties">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+        <span> Specialties</span>
+      </a>
+    </li>
+  </ul>
+
+  </div>
+  </nav>
+</div>
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<br/>
+<br/>
+<div class="container footer-wrapper">
+  <div class="row">
+    <div class="col-12 text-center"><img src="./assets/images/angular.png"
+                                         alt="Angular" height="80" width="80"/>
+      <img src="./assets/images/spring-pivotal-logo.png"
+           alt="Sponsored by Pivotal"/></div>
+  </div>
+</div>

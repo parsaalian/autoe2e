@@ -1,0 +1,12 @@
+query CurrentUserOrderList {
+	me {
+		...UserDetails
+		orders(first: 10) {
+			edges {
+				node {
+					...OrderDetails
+				}
+			}
+		}
+	}
+}

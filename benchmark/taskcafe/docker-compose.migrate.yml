@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  migrate:
+    build: .
+    entrypoint: ./taskcafe migrate
+    volumes:
+      - ./migrations:/root/migrations
+    depends_on:
+      - postgres
+    networks:
+      - taskcafe-test

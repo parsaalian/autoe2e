@@ -1,0 +1,21 @@
+/* Adjust color of inline code */
+code {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/*
+ * Increases the distance between a code block
+ * and its previous line within a list.
+ */
+li > pre {
+    margin-top: .4rem;
+}
+
+/* quotes */
+blockquote {
+    padding: 0.13em 1em;
+    color: rgb(119,119,119);
+    border-left: 0.25em solid #C0C0C0;
+    font-size: inherit;
+}

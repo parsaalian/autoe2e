@@ -1,0 +1,15 @@
+query ProductListByCollection($slug: String!, $channel: String!) {
+	collection(slug: $slug, channel: $channel) {
+		name
+		description
+		seoDescription
+		seoTitle
+		products(first: 100) {
+			edges {
+				node {
+					...ProductListItem
+				}
+			}
+		}
+	}
+}

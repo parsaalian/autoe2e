@@ -1,0 +1,15 @@
+query ProductListPaginated($first: Int!, $after: String, $channel: String!) {
+	products(first: $first, after: $after, channel: $channel) {
+		totalCount
+		edges {
+			node {
+				...ProductListItem
+			}
+			cursor
+		}
+		pageInfo {
+			endCursor
+			hasNextPage
+		}
+	}
+}

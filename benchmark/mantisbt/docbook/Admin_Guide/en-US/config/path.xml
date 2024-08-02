@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+ <!ENTITY % BOOK_ENTITIES SYSTEM "Admin_Guide.ent">
+]>
+<section id="admin.config.path">
+	<title>Path</title>
+
+	<para>These path settings are important for proper linking within
+		MantisBT. In most scenarios the default values should work fine, and
+		you should not need to override them.
+	</para>
+	<variablelist>
+		<varlistentry>
+			<term>$g_path</term>
+			<listitem>
+				<para>
+					Full URL to your installation as seen from the web browser.
+				</para>
+				<para>
+					This is what users type into the URL field, e.g.
+					<literal>https://www.example.com/mantisbt/</literal>.
+					Requires trailing `/`.
+				</para>
+				<para>
+					If not set, MantisBT will default this to a working URL valid
+					for most installations. However, in some cases (typically when
+					an installation can be accessed by multiple URLs, e.g. internal
+					vs external), it might be necessary to override the default.
+				</para>
+				<warning><para>
+					The default is built based on headers from the HTTP request.
+					This is a potential security risk, as the system will be exposed to
+					<ulink url="https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/07-Input_Validation_Testing/17-Testing_for_Host_Header_Injection"
+					>Host Header injection</ulink>
+					attacks, so it is
+					strongly recommended to initialize this in config_inc.php.
+					</para>
+				</warning>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_short_path</term>
+			<listitem>
+				<para>Short web path without the domain name.  This requires the trailing '/'.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_absolute_path</term>
+			<listitem>
+				<para>This is the absolute file system path to the MantisBT installation, it is
+					defaulted to the directory where config_defaults_inc.php resides.
+					Requires trailing '/' character (eg. '/usr/apache/htdocs/mantisbt/').
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_core_path</term>
+			<listitem>
+				<para>This is the path to the core directory of your installation.
+					The default value is usually OK but it is recommended
+					that you move the 'core' directory out of your webroot.
+					Requires trailing DIRECTORY_SEPARATOR character.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_class_path</term>
+			<listitem>
+				<para>This is the path to the classes directory which is a sub-directory of core by default.
+					The default value is typically OK.  Requires trailing DIRECTORY_SEPARATOR.
+					character.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_library_path</term>
+			<listitem>
+				<para>This is the path to the library directory of your installation.
+					The default value is usually OK but it is recommended
+					that you move the 'library' directory out of your webroot.
+					Requires trailing DIRECTORY_SEPARATOR character.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_vendor_path</term>
+			<listitem>
+				<para>Path to vendor folder for 3rd party libraries.
+					Requires trailing DIRECTORY_SEPARATOR character.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_language_path</term>
+			<listitem>
+				<para>This is the path to the language directory of your installation.
+					The default value is usually OK but it is recommended
+					that you move the 'language' directory out of your webroot.
+					Requires trailing DIRECTORY_SEPARATOR character.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_manual_url</term>
+			<listitem>
+				<para>This is the url to the MantisBT online manual.  Requires trailing '/' character.
+				</para>
+			</listitem>
+		</varlistentry>
+	</variablelist>
+</section>

@@ -1,0 +1,15 @@
+query ProductListByCategory($slug: String!, $channel: String!) {
+	category(slug: $slug) {
+		name
+		description
+		seoDescription
+		seoTitle
+		products(first: 100, channel: $channel) {
+			edges {
+				node {
+					...ProductListItem
+				}
+			}
+		}
+	}
+}

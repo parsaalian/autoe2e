@@ -1,0 +1,35 @@
+npm cache clean -f
+
+npm install -g n
+
+sudo n stable
+
+#logout and login
+
+npm install -g bower
+
+#logout and login
+
+git remote set-url origin https://github.com/jeka-kiselyov/dimeshift.git
+
+git pull 
+
+
+sed -i 's+https://raw.githubusercontent.com/pivotal/jasmine-ajax/master/lib/mock-ajax.js+https://raw.githubusercontent.com/jasmine/jasmine-ajax/main/lib/mock-ajax.js+g'
+
+
+
+npm install 
+
+
+bower install --allow-root
+
+docker run -it --workdir=/home/dimeshift-application --name=dimeshift --expose 8080 --expose 3306 -p 30000:8080 -p 33066:3306 -d --entrypoint ./run-code-instrumentation.sh webappdockers/dimeshift:440898e bash
+
+
+############ DOCKER COMMIT AND PUSH ####################
+
+
+docker commit 07b64e52c411 webappdockers/dimeshift:440898e
+
+docker push webappdockers/dimeshift:440898e

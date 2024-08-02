@@ -1,0 +1,68 @@
+# Config files
+config/
+mantis_offline.php
+
+# Docbook builds
+docbook/*/*/builddate
+docbook/*/*/build
+docbook/*/*/install
+docbook/*/tmp
+!docbook/Admin_Guide/*/config
+
+# Local docbook from release tarballs
+doc/en-US
+
+# Untracked plugins
+plugins/*
+!plugins/MantisCoreFormatting
+!plugins/MantisGraph
+!plugins/XmlImportExport
+!plugins/Gravatar
+
+# IDE/Editor temporary files
+*~
+*.swp
+*.bak
+.buildpath
+.cache
+.project
+.settings
+.idea/
+.vscode/
+*.kdev4
+nbproject/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# MacOS
+.DS_Store
+
+# Libraries (outdated or installed via Composer)
+library/FirePHPCore
+library/ezc
+library/adodb
+library/disposable
+library/parsedown
+library/phpmailer
+library/securimage
+api/rest/swagger
+
+# Composer
+/vendor/
+composer.phar
+
+# PHPUnit
+.phpunit.result.cache
+
+
+# Settings below are for convenience when switching branches on Dev machines
+
+# v1.2.x config files
+config_inc.php
+custom_constants_inc.php
+custom_functions_inc.php
+custom_relationships_inc.php
+custom_strings_inc.php
+api/soap/mc_config_inc.php

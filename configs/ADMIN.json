@@ -1,0 +1,12 @@
+{
+  "temp_dir": "./tmp",
+  "driver": {
+    "base_url": "http://localhost:9000/"
+  },
+  "lifecycle": {
+    "on_visit": [],
+    "on_state_discovery": [
+      ["oraclai.llm_guide", "StateContextExtraction"]
+    ]
+  }
+}

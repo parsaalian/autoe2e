@@ -1,0 +1,22 @@
+{
+    "view a list of owners": "c2c3",
+    "find an owner": "c2c3t1+c10",
+    "add owner": "c2(c4|c3c12)(t15|t16|t17|t18|t19)+c31",
+    "view owner details": "c2c3c11",
+    "add a new pet to the owner": "c2c3c11c15(t9|t10|s2)+c21",
+    "edit owner details": "c2c3c11c14(t2|t3|t4|t5|t6)+c17",
+    "edit pet details": "c2c3c11c22(t7|t8|s1)+c19",
+    "delete pet": "c2c3c11c23",
+    "add visit for pet": "c2c3c11c24(t11|t12)+c28",
+    "edit details of a visit": "c2c3c11c25(t13|t14)+c29",
+    "delete a visit": "c2c3c11c26",
+    "edit details of a vet": "c5c6c32(t20|t21|s3)+c37",
+    "delete a vet": "c5c6c33",
+    "add a vet": "c5(c7|c6c35)(t22|t23|s4)+c39",
+    "edit a pet type": "c8c40t24+c44",
+    "delete a pet type": "c8c41",
+    "add a pet type": "c8c43t25+c46",
+    "edit a specialty": "c9c47t26+c51",
+    "add a specialty": "c9c50t27+c53",
+    "delete a specialty": "c9c48"
+}

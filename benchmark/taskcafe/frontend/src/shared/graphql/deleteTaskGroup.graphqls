@@ -1,0 +1,13 @@
+mutation deleteTaskGroup($taskGroupID: UUID!) {
+  deleteTaskGroup(input: { taskGroupID: $taskGroupID }) {
+    ok
+    affectedRows
+    taskGroup {
+      id
+      tasks {
+        id
+        name
+      }
+    }
+  }
+}

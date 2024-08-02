@@ -1,0 +1,12 @@
+{
+  "temp_dir": "./tmp",
+  "driver": {
+    "base_url": "https://mantisbt.org/bugs/my_view_page.php"
+  },
+  "lifecycle": {
+    "on_visit": [],
+    "on_state_discovery": [
+      ["oraclai.llm_guide", "StateContextExtraction"]
+    ]
+  }
+}

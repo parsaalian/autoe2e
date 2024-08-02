@@ -1,0 +1,55 @@
+import React, { Suspense } from "react";
+import { AddressForm } from "@/checkout/components/AddressForm";
+import { FormProvider } from "@/checkout/hooks/useForm/FormProvider";
+import { useGuestBillingAddressForm } from "@/checkout/sections/GuestBillingAddressSection/useGuestBillingAddressForm";
+import { useCheckout } from "@/checkout/hooks/useCheckout";
+import { AddressSectionSkeleton } from "@/checkout/components/AddressSectionSkeleton";
+import { useBillingSameAsShippingForm } from "@/checkout/sections/GuestBillingAddressSection/useBillingSameAsShippingForm";
+import { Checkbox } from "@/checkout/components";
+
+export const GuestBillingAddressSection = () => {
+	const {
+		checkout: { isShippingRequired },
+	} = useCheckout();
+
+	const billingSameAsShippingForm = useBillingSameAsShippingForm({ autoSave: true });
+
+	const {
+		values: { billingSameAsShipping },
+	} = billingSameAsShippingForm;
+
+	// we want to avoid validating this form on "pay" click when it's not visible
+	const form = useGuestBillingAddressForm({ skipValidation: billingSameAsShipping });
+
+	const { handleBlur, handleChange } = form;
+
+	return (
+		<Suspense fallback={<AddressSectionSkeleton />}>
+			{isShippingRequired && (
+				<div className="mb-4">
+					<FormProvider form={billingSameAsShippingForm} formid="f-billing-same">
+						<Checkbox
+							name="billingSameAsShipping"
+							label="Use shipping address as billing address"
+							data-testid="useShippingAsBillingCheckbox"
+							clickId="c39-use-shipping-as-billing"
+						/>
+					</FormProvider>
+				</div>
+			)}
+			{!billingSameAsShipping && (
+				<div className="mb-4">
+					<FormProvider form={form} formid="f-billing-address">
+						<AddressForm
+							title="Billing address"
+							fieldProps={{
+								onChange: handleChange,
+								onBlur: handleBlur,
+							}}
+						/>
+					</FormProvider>
+				</div>
+			)}
+		</Suspense>
+	);
+};

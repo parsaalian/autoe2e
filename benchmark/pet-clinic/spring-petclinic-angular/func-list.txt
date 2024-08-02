@@ -1,0 +1,21 @@
+1. View homepage
+2. View a list of owners
+3. Find an owner
+4. Add an owner
+5. View owner details
+6. Add a new pet to the owner
+7. Edit details of an owner
+8. Edit details of a pet
+9. Delete pet
+10. Add a visit for a pet
+11. Edit details of a visit
+12. Delete a visit
+13. Edit details of a vet
+14. Delete a vet
+15. Add a vet
+16. Edit a pet type
+17. Delete a pet type
+18. Add a pet type
+19. Edit a specialty
+20. Add a specialty
+21. Delete a specialty

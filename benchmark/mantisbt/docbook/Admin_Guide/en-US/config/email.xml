@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+ <!ENTITY % BOOK_ENTITIES SYSTEM "Admin_Guide.ent">
+]>
+<section id="admin.config.email">
+	<title>Email</title>
+
+	<variablelist>
+		<varlistentry>
+			<term>$g_webmaster_email</term>
+			<listitem>
+				<para>The webmaster's e-mail address. This address is displayed in
+					the bottom of all MantisBT
+					pages. webmaster@example.com
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_from_email</term>
+			<listitem>
+				<para>The email address to be used as the source of all emails
+					sent by MantisBT. noreply@example.com
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_from_name</term>
+			<listitem>
+				<para>The sender name of all emails sent by MantisBT. Mantis Bug Tracker
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_return_path_email</term>
+			<listitem>
+				<para>Email address to receive bounced emails.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_enable_email_notification</term>
+			<listitem>
+				<para>Set to ON to enable email notifications, OFF to
+					disable them. Default is ON. Note that disabling
+					email notifications has no effect on emails generated
+					as part of the user signup process. When set to OFF,
+					the password reset feature is disabled. Additionally,
+					notifications of administrators updating accounts are
+					not sent to users.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_notifications_verbose</term>
+			<listitem>
+				<para>
+					When enabled, the email notifications will include the full issue with
+					a hint about the change type at the top, rather than using dedicated
+					notifications that are focused on what changed.  This change can be
+					overridden in the database per user.  Default is OFF.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_default_notify_flags</term>
+			<listitem>
+				<para>Associates a default notification flag with each action,
+					to control who should be notified. The default will be used
+					if the action is not defined in <emphasis>$g_notify_flags</emphasis>
+					or if the flag is not included in the specific action definition.
+				</para>
+				<para>The list of actions include:
+					<emphasis>new</emphasis>,
+					<emphasis>assigned</emphasis>,
+					<emphasis>resolved</emphasis>,
+					<emphasis>bugnote</emphasis>,
+					<emphasis>reopened</emphasis>,
+					<emphasis>closed</emphasis>,
+					<emphasis>deleted</emphasis>,
+					<emphasis>feedback</emphasis>.
+				</para>
+				<para>The default is:
+<programlisting>
+$g_default_notify_flags = array(
+	'reporter'      =&gt; ON,
+	'handler'       =&gt; ON,
+	'monitor'       =&gt; ON,
+	'bugnotes'      =&gt; ON,
+	'category'      =&gt; ON,
+	'explicit'      =&gt; ON,
+	'threshold_min' =&gt; NOBODY,
+	'threshold_max' =&gt; NOBODY
+);
+</programlisting>
+					<emphasis>threshold_min</emphasis> and
+					<emphasis>threshold_max</emphasis> are used to send messages to all
+					members of the project whose status is
+					<itemizedlist>
+						<listitem>
+							<para>greater than or equal to <emphasis>threshold_min</emphasis>, and</para>
+						</listitem>
+						<listitem>
+							<para>less than or equal to <emphasis>threshold_max</emphasis>.</para>
+						</listitem>
+					</itemizedlist>
+				</para>
+				<para>Sending messages to everyone would set
+					<emphasis>threshold_min</emphasis> to ANYBODY and
+					<emphasis>threshold_max</emphasis> to NOBODY.
+					To send to all DEVELOPERS and above, use DEVELOPER and
+					NOBODY respectively.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_notify_flags</term>
+			<listitem>
+				<para>Defines the specific notification flags when they are
+					different from the defaults defined in
+					<emphasis>$g_default_notify_flags</emphasis>.
+				</para>
+				<para>For example, the following code overrides the default by
+					disabling notifications to bugnote authors and users
+					monitoring the bug when submitting a new bug:
+<programlisting>
+$g_notify_flags['new'] = array(
+	'bugnotes' =&gt; OFF,
+	'monitor' =&gt; OFF,
+);
+</programlisting>
+				See <xref linkend="admin.customize.email" />
+				for further examples of customizing the notification flags.
+				</para>
+				<para>Available actions include:
+					<itemizedlist>
+						<listitem>
+							<para><emphasis>new</emphasis>:
+								a new bug has been added
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>reopened</emphasis>:
+								the bug has been reopened
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>deleted</emphasis>:
+								a bug has been deleted
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>owner</emphasis>:
+								the bug has been assigned a new owner
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>bugnote</emphasis>:
+								a bugnote has been added to a bug
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>sponsor</emphasis>:
+								the sponsorship for the bug has changed
+								(added, deleted or updated)
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>relation</emphasis>:
+								a relationship for the bug has changed
+								(added, deleted or updated)
+							</para>
+						</listitem>
+						<listitem>
+							<para><emphasis>monitor</emphasis>:
+								a user is added to the monitor list.
+							</para>
+						</listitem>
+					</itemizedlist>
+					In addition, an action can match the bug status in
+					<emphasis>$g_status_enum_string</emphasis>. Note that spaces
+					in the string are replaced with underscores ('_') when
+					creating the action. Thus, using the defaults, 'feedback'
+					would be a valid action.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_receive_own</term>
+			<listitem>
+				<para>This defines whether users should receive emails for their
+					own actions. This option is defaulted to OFF, hence, users do not
+					receive email notification for their own actions.
+					This can be a source for confusions for users upgrading from MantisBT
+					0.17.x versions, since in these versions users used to get notified
+					of their own actions.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_validate_email</term>
+			<listitem>
+				<para>Determines whether email addresses are validated.
+				</para>
+				<para>When ON (default), validation is performed using the
+					pattern given by the
+					<ulink url="https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address">
+						HTML5 specification for <emphasis>email</emphasis>
+						type form input elements</ulink>.
+					When OFF, validation is disabled.
+				</para>
+				<note><para>
+					Regardless of how this option is set, validation is
+					never performed when using LDAP email
+					(i.e. when $g_use_ldap_email = ON,
+					see <xref linkend="admin.config.auth.ldap" />),
+					as we assume that it is handled by the directory.
+				</para></note>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_check_mx_record</term>
+			<listitem>
+				<para>Set to OFF to disable email checking. Default is
+					OFF.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_allow_blank_email</term>
+			<listitem>
+				<para>If ON, allows the user to omit an email address field.
+					If you allow users to create their own accounts, they must specify
+					an email at that point, no matter what the value of this option is.
+					Otherwise they wouldn't get their passwords.
+				</para>
+				<para>
+					Administrators are able to bypass this check to enable them to create
+					special accounts like anonymous access and other service accounts that
+					don't need notifications.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_login_enabled</term>
+			<listitem>
+				<para>Allow login with email address.</para>
+				<para>
+					When this is ON, users can log in with their registered
+					email address, in addition to their username.
+				</para>
+				<para>
+					This will only work as long as there is a single user
+					with the specified email address, and the email address is
+					not blank.
+				</para>
+				<para>The default value is OFF.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_ensure_unique</term>
+			<listitem>
+				<para>
+					When enabled, the uniqueness of email addresses will be enforced for new
+					users as well as updates to existing ones.
+					Default is ON.
+				</para>
+				<warning>
+					<para>
+						When this setting changes from OFF to ON (which will
+						de facto occur when upgrading to MantisBT 1.3.0 or later
+						from an older version), there could be existing
+						user accounts sharing the same email address.
+					</para>
+					<para>
+						It important that such duplicates are identified and fixed,
+						to avoid unexpected and unpredictable behavior when
+						looking up users with their email address, as the system
+						expects them to be unique.
+					</para>
+					<para>
+						To facilitate this task, the <emphasis>Administration Checks</emphasis>
+						will detect duplicate email addresses and identify the
+						related user accounts.
+						A warning will also be displayed in the Manage Users page
+						(see <xref linkend="admin.pages.manage.users" />) and
+						when editing a user account whose email address is associated
+						with one or more other accounts.
+					</para>
+				</warning>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_limit_email_domains</term>
+			<listitem>
+				<para>Only allow and send email to addresses in the given domain(s).
+					This is useful as a security feature and it is also useful in cases
+					like Sourceforge where its servers are limited to only sending emails
+					to SourceForge email addresses in order to avoid
+					spam. $g_limit_email_domains =
+					array( 'users.sourceforge.net', 'sourceforge.net' );
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_show_user_email_threshold</term>
+			<listitem>
+				<para>This specifies the access level that is needed to have user
+					names hyperlinked with mailto: links. The default value is NOBODY,
+					hence, even administrators won't have this feature enabled.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_show_user_realname_threshold</term>
+			<listitem>
+				<para>This specifies the access level that is needed to see realnames on user view
+ 				  page.
+ 				  The default value is NOBODY, hence, even administrators won't have this feature enabled.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_phpMailer_method</term>
+			<listitem>
+				<para>Select the method to send mail:
+					<itemizedlist>
+						<listitem><para>
+							<emphasis>PHPMAILER_METHOD_MAIL</emphasis>
+							for use of mail() function,
+						</para></listitem>
+						<listitem><para>
+							<emphasis>PHPMAILER_METHOD_SENDMAIL</emphasis>
+							for sendmail (or postfix),
+						</para></listitem>
+						<listitem><para>
+							<emphasis>PHPMAILER_METHOD_SMTP</emphasis>
+							for SMTP,
+						</para></listitem>
+					</itemizedlist>
+					Default is PHPMAILER_METHOD_MAIL.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_smtp_host</term>
+			<listitem>
+				<para>This option specifies the SMTP server to submit messages to.
+					The SMTP server (MTA) then takes on the responsibility of delivering
+					messages to their final destinations.
+				</para>
+				<para>To use the local SMTP (if available) set this to 'localhost',
+					otherwise use the fully qualified domain name of the remote SMTP server.
+				</para>
+				<para>It can be either a single hostname, or multiple semicolon-delimited hostnames.
+					You can specify for each host a port other than the default, using format:
+					<emphasis>hostname:port</emphasis>
+					(e.g. "smtp1.example.com:25;smtp2.example.com").
+				</para>
+				<para>Hosts will be tried in the given order.
+				</para>
+				<note><para>This is only used with
+					<emphasis>PHPMAILER_METHOD_SMTP</emphasis>
+					(see $g_phpmailer_method).
+				</para></note>
+				<para>The default is 'localhost'.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_smtp_port</term>
+			<listitem>
+				<para>The default SMTP port to use.
+					This can be overridden individually for specific hosts.
+					(see $g_smtp_host).
+				</para>
+				<para>Typical SMTP ports are 25 and 587.
+				</para>
+				<para>The default is 25.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_smtp_connection_mode</term>
+			<listitem>
+				<para>Allow secure connection to the SMTP server. Valid values are:
+					<itemizedlist>
+						<listitem><para><emphasis>'' (empty string)</emphasis>:
+							No encryption. This is the default.
+						</para></listitem>
+						<listitem><para><emphasis>ssl</emphasis></para></listitem>
+						<listitem><para><emphasis>tls</emphasis></para></listitem>
+					</itemizedlist>
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_smtp_username</term>
+			<listitem>
+				<para>SMTP Server Authentication user
+				</para>
+				<para>Allows the use of SMTP Authentication when using a remote SMTP host.
+				</para>
+				<note><para>must be set to '' (empty string) if the SMTP host
+					does not require authentication.
+				</para></note>
+				<para>Default is ''.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_smtp_password</term>
+			<listitem>
+				<para>This is the password that is used in SMTP Authentication.
+					Not used when $g_smtp_username = ''
+				</para>
+				<para>Default is ''.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_retry_in_days</term>
+			<listitem>
+				<para>Duration (in days) to retry failed emails before deleting them from queue.  Default 7 days.</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_send_using_cronjob</term>
+			<listitem>
+				<para>Use a cron scheduler to send emails.</para>
+				<para>When this is ON (recommended), instead of sending of emails
+					as soon as an action is performed (typically at the end of each
+					page), emails are queued and must be sent manually by executing
+					<literal>scripts/send_emails.php</literal>.
+					This script can only be run from the CLI, not from the
+					web interface, for security reasons.
+				</para>
+				<para>The script's execution is typically handled by a cron job or
+					a scheduler task, set to run every few minutes.
+				</para>
+				<para>
+					If no cronjob is used (default), then the user will have to
+					wait for MantisBT to process the email queue after each page
+					load.
+				</para>
+				<note>
+					<para>
+						Considering that processing the email queue can take a
+						significant amount of time on
+						systems generating large numbers of notifications,
+						when the queue contains many undeliverable emails or
+						when mail delivery is slow,
+						enabling this option can significantly improve
+						MantisBT's performance.
+					</para>
+				</note>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_separator1</term>
+			<listitem>
+				<para>Default is str_pad('', 70, '='); This means 70 equal
+					signs.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_separator2</term>
+			<listitem>
+				<para>Default is str_pad('', 70, '-'); This means 70 minus
+					signs.
+				</para>
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term>$g_email_padding_length</term>
+			<listitem>
+				<para>Default is 28.</para>
+			</listitem>
+		</varlistentry>
+	</variablelist>
+
+	<para>MantisBT uses flags and a threshold system to generate emails on
+		events. For each new event, email is sent to:
+		<itemizedlist>
+			<listitem>
+				<para>the reporter, qualified by the notify flag 'reporter'
+					below
+				</para>
+			</listitem>
+			<listitem>
+				<para>the handler (or Assigned to), qualified by the notify
+					flag 'handler' below
+				</para>
+			</listitem>
+			<listitem>
+				<para>anyone monitoring the bug, qualified by the notify flag
+					'monitor' below
+				</para>
+			</listitem>
+			<listitem>
+				<para>anyone who has ever added a bugnote the bug, qualified by
+					the notify flag 'bugnotes' below
+				</para>
+			</listitem>
+			<listitem>
+				<para>anyone assigned to the project whose access level is
+					greater than or equal to the notify flag 'threshold_min' and less
+					than or equal to the notify flag 'threshold_max' below
+				</para>
+			</listitem>
+		</itemizedlist>
+	</para>
+
+	<para>
+		From this list, those recipients who meet the following criteria
+		are eliminated:
+		<itemizedlist>
+			<listitem>
+				<para>the originator of the change, if $g_email_receive_own is
+					OFF
+				</para>
+			</listitem>
+			<listitem>
+				<para>the recipient either no longer exists, or is
+					disabled
+				</para>
+			</listitem>
+			<listitem>
+				<para>the recipient has turned their email_on_&lt;new
+					status&gt; preference OFF
+				</para>
+			</listitem>
+			<listitem>
+				<para>the recipient has no email address entered</para>
+			</listitem>
+		</itemizedlist>
+	</para>
+
+	<section id="admin.config.email.dkim">
+		<title>DKIM signature</title>
+
+		<para>In order to setup
+			<ulink url="https://en.wikipedia.org/wiki/DomainKeys_Identified_Mail"
+				>DomainKeys Identified Mail (DKIM) Signatures</ulink>
+			(as defined in
+			<ulink url="https://tools.ietf.org/html/rfc6376">RFC 6376</ulink>),
+			you need to enable the feature
+			(see <emphasis>$g_email_dkim_enable</emphasis>),
+			and provide at least:
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>Domain
+					(see <emphasis>$g_email_dkim_domain</emphasis>),
+				</para>
+			</listitem>
+			<listitem>
+				<para>Private key or key file path
+					(see <emphasis>$g_email_dkim_private_key_file_path</emphasis>
+					and <emphasis>$g_email_dkim_private_key_string</emphasis>),
+				</para>
+			</listitem>
+			<listitem>
+				<para>Selector
+					(see <emphasis>$g_email_dkim_selector</emphasis>),
+				</para>
+			</listitem>
+			<listitem>
+				<para>Identity
+					(see <emphasis>$g_email_dkim_identity</emphasis>).
+				</para>
+			</listitem>
+		</itemizedlist>
+
+		<variablelist>
+			<varlistentry>
+				<term>$g_email_dkim_enable</term>
+				<listitem>
+					<para>Enables DomainKeys Identified Mail (DKIM).
+					</para>
+					<para>The default is OFF.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_domain</term>
+				<listitem>
+					<para>Defines the domain for DKIM Signatures.
+					</para>
+					<para>This is typically same as the host part of the $g_from_email.
+						For example <emphasis>example.com</emphasis>.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_private_key_file_path</term>
+				<listitem>
+					<para>Path to the private domain key to be used for DKIM Signatures.
+					</para>
+					<para>If the key is specified in $g_email_dkim_private_key_string this setting will not be used.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_private_key_string</term>
+				<listitem>
+					<para>Private domain key to be used for DKIM Signatures.
+					</para>
+					<para>This string should contain private key for signing. Leave empty
+						string if you wish to load the key from the file defined with
+						$g_email_dkim_private_key_file_path.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_selector</term>
+				<listitem>
+					<para>Selector to be used for DKIM Signatures.
+					</para>
+					<para>If your domain is example.com, typically DNS TXT field should have:
+						<emphasis>host: mail.example._domainkey</emphasis>,
+						<emphasis>value: v=DKIM1; t=s; n=core; k=rsa; p=[public key]</emphasis>.
+						In this case selector should be mail.example
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_passphrase</term>
+				<listitem>
+					<para>Private DKIM domain key password.
+					</para>
+					<para>Leave empty string if your private key does not have password
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_dkim_identity</term>
+				<listitem>
+					<para>Identity to be used for DomainKeys Identified Mail (DKIM) Signatures.
+					</para>
+					<para>This is usually the same as <emphasis>$g_from_email</emphasis>.
+						For example, noreply@example.com
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+
+	<section id="admin.config.email.smime">
+		<title>S/MIME signature</title>
+
+		<para>This sections describes the necessary settings to enable
+			<ulink url="https://en.wikipedia.org/wiki/S/MIME">S/MIME</ulink>
+			signature for outgoing MantisBT e-mails.
+		</para>
+
+		<variablelist>
+			<varlistentry>
+				<term>$g_email_smime_enable</term>
+				<listitem>
+					<para>Enables S/MIME signature.
+					</para>
+					<para>Defaults to OFF.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_smime_cert_file</term>
+				<listitem>
+					<para>Path to the S/MIME certificate.</para>
+					<para>The file must contain a
+						<ulink url="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail">PEM-encoded</ulink>
+						certificate.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_smime_key_file</term>
+				<listitem>
+					<para>Path to the S/MIME private key file.</para>
+					<para>The file must contain a PEM-encoded private key
+						matching the S/MIME certificate.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_smime_key_password</term>
+				<listitem>
+					<para>Password for the S/MIME private key.</para>
+					<para>Leave blank if the private key is not protected
+						by a passphrase.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>$g_email_smime_extracerts_file</term>
+				<listitem>
+					<para>Optional path to S/MIME extra certificates.</para>
+					<para>The file must contain one (or more) PEM-encoded
+						certificates, which will be included in the signature to
+						help the recipient verify the certificate specified in
+						<emphasis>$g_email_smime_cert_file</emphasis>
+						("CA Chain").
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<note>
+			<para>MantisBT expects the S/MIME certificates and the private key
+				files to be in
+				<ulink url="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail">PEM</ulink>
+				format.
+				If you have a <ulink url="https://en.wikipedia.org/wiki/PKCS_12">PKCS12</ulink>
+				encrypted certificate (typically with a .pfx or .p12 extension),
+				you may use the following <literal>openssl</literal> commands
+				to extract and convert the individual elements:
+			</para>
+			<itemizedlist>
+				<listitem>
+					<para>Certificate</para>
+					<programlisting>
+openssl pkcs12 -in cert.pfx -clcerts -nokeys -out cert.crt
+</programlisting>
+				</listitem>
+				<listitem>
+					<para>Extra certificates ("CA chain")</para>
+					<programlisting>
+openssl pkcs12 -in cert.pfx -cacerts -nokeys -out ca-chain.crt
+</programlisting>
+				</listitem>
+				<listitem>
+					<para>Private key
+						(<literal>-passout</literal> specifies the private key's password)
+					</para>
+					<programlisting>
+openssl pkcs12 -in cert.pfx -nocerts -out cert.key -passout pass:
+</programlisting>
+				</listitem>
+			</itemizedlist>
+			<para>If the input file is protected, openssl will ask for the password;
+				alternatively, you can specify it on the command-line with the
+				<emphasis>-passin</emphasis> option, e.g.
+				<literal>-passin pass:PASSWORD</literal>
+			</para>
+		</note>
+
+	</section>
+
+</section>

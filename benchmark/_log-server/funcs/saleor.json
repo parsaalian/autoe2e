@@ -1,0 +1,15 @@
+{
+    "view a product": "c2",
+    "search for a product": "(t3)+c12",
+    "view a list of products": "c13|c14",
+    "add a product to the cart": "c2(c1)?c21",
+    "view the cart": "c17",
+    "remove a product from the cart": "c17c25",
+    "view a list of orders": "c19",
+    "log out": "c20",
+    "log in": "c18(t1|t2)+c6",
+    "change cart quantity": "c17c26(t4)+",
+    "apply a discount code": "c17c26(t5)+c28",
+    "checkout": "c17c26(s1|c35|s2)+c40",
+    "create an account": "c17c26c29(t7|t6)+"
+}
