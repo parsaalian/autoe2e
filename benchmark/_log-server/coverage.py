@@ -1,3 +1,4 @@
+# This server is used to evaluate the feature coverage of a test suite in an application.
 import re
 import json
 import redis

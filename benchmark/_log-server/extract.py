@@ -1,3 +1,4 @@
+# This server is used for manual feature extraction in an application, prior to coverage evaluation.
 import os
 import json
 from flask_cors import CORS
