@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta name="robots" content="noindex" />
+    <title>Sign in to the Saleor Dashboard</title>
+
+    <meta
+      name="description"
+      content="Sign in to the Saleor Dashboard to manage your orders, payments, products and more."
+    />
+
+    <%- injectOgTags %>
+
+    <script>
+      window.__SALEOR_CONFIG__ = {
+        API_URL: "<%= API_URL %>",
+        APP_MOUNT_URI: "<%= APP_MOUNT_URI %>",
+        APPS_MARKETPLACE_API_URL: "<%= APPS_MARKETPLACE_API_URL %>",
+        APPS_TUNNEL_URL_KEYWORDS: "<%= APPS_TUNNEL_URL_KEYWORDS %>",
+        IS_CLOUD_INSTANCE: "<%= IS_CLOUD_INSTANCE %>",
+        LOCALE_CODE: "<%= LOCALE_CODE %>",
+      };
+    </script>
+  </head>
+
+  <body>
+    <div id="dashboard-app"></div>
+    <div id="portal"></div>
+    <div id="modal-root"></div>
+  </body>
+</html>
