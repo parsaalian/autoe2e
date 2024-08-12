@@ -1,13 +1,13 @@
 import json
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from oraclai.utils import logger
+from autoe2e.utils import logger
 
-from oraclai.core.config import Config
-from oraclai.core.browser import get_driver_container
-from oraclai.core.crawl_context import CrawlContext
-from oraclai.core.state import State
-from oraclai.core.action import Action, CandidateActionExtractor
+from autoe2e.crawler.config import Config
+from autoe2e.browser import get_driver_container
+from autoe2e.crawler.crawl_context import CrawlContext
+from autoe2e.crawler.state import State
+from autoe2e.crawler.action import Action, CandidateActionExtractor
 
 
 def read_config(config_path: str) -> dict:

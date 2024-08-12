@@ -6,7 +6,7 @@ from PIL import Image
 from functools import lru_cache
 from bs4 import BeautifulSoup, Tag
 
-from oraclai.utils import logger
+from autoe2e.utils import logger
 
 
 import collections

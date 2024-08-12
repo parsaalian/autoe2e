@@ -4,12 +4,12 @@ import json
 from dotenv import load_dotenv
 from bson.objectid import ObjectId
 
-from oraclai.utils import logger
+from autoe2e.utils import logger
 
-from oraclai.core.browser.utils import save_screenshot
-from oraclai.core.crawl_context import CrawlContext
-from oraclai.core.state import State, StateIdEvaluator
-from oraclai.core.action import Action
+from autoe2e.browser.utils import save_screenshot
+from autoe2e.crawler.crawl_context import CrawlContext
+from autoe2e.crawler.state import State, StateIdEvaluator
+from autoe2e.crawler.action import Action
 
 from autoe2e.llm_api_call import (
     sonnet_chain,

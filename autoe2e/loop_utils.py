@@ -4,11 +4,11 @@ import random
 
 from dotenv import load_dotenv
 
-from oraclai.utils import logger
+from autoe2e.utils import logger
 
-from oraclai.core.crawl_context import CrawlContext
-from oraclai.core.state import State, StateIdEvaluator
-from oraclai.core.action import Action, CandidateActionExtractor
+from autoe2e.crawler.crawl_context import CrawlContext
+from autoe2e.crawler.state import State, StateIdEvaluator
+from autoe2e.crawler.action import Action, CandidateActionExtractor
 from autoe2e.manual_ndd import (
     VISIT_ONCE,
     NEVER_VISIT

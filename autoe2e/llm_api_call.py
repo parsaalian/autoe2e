@@ -8,7 +8,7 @@ from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.callbacks import get_openai_callback
 
-from oraclai.utils import logger
+from autoe2e.utils import logger
 from .utils import log_user_messages
 
 
