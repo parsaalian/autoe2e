@@ -1,3 +1,4 @@
+// function to embed withing the front-end code to log messages to the server
 import axios from 'axios';
 
 
