@@ -11,12 +11,12 @@ from oraclai.core.crawl_context import CrawlContext
 from oraclai.core.state import State, StateIdEvaluator
 from oraclai.core.action import Action
 
-from oraclai.llm_guide.llm_api_call import (
+from autoe2e.llm_api_call import (
     sonnet_chain,
     haiku_chain,
     openai_embeddings
 )
-from oraclai.llm_guide.prompts import (
+from autoe2e.prompts import (
     CONTEXT_EXTRACTION_SYSTEM_PROMPT,
     FUNCTIONALITY_EXTRACTION_SYSTEM_PROMPT,
     SIMILARITY_SYSTEM_PROMPT,
@@ -29,12 +29,12 @@ from oraclai.llm_guide.prompts import (
     create_simple_user_messages,
     create_finality_user_messages
 )
-from oraclai.llm_guide.utils import (
+from autoe2e.utils import (
     png_to_base64,
     extract_response_content,
     geometric_score
 )
-from oraclai.llm_guide.mongo_utils import (
+from autoe2e.mongo_utils import (
     action_func_db,
     func_db
 )

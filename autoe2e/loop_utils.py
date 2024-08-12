@@ -9,11 +9,11 @@ from oraclai.utils import logger
 from oraclai.core.crawl_context import CrawlContext
 from oraclai.core.state import State, StateIdEvaluator
 from oraclai.core.action import Action, CandidateActionExtractor
-from oraclai.llm_guide.manual_ndd import (
+from autoe2e.manual_ndd import (
     VISIT_ONCE,
     NEVER_VISIT
 )
-from oraclai.llm_guide.infer_utils import (
+from autoe2e.infer_utils import (
     extract_state_context,
     extract_action_functionalities,
     insert_functionalities,
@@ -23,7 +23,7 @@ from oraclai.llm_guide.infer_utils import (
     is_action_critical,
     create_form_filling_values
 )
-from oraclai.llm_guide.mongo_utils import (
+from autoe2e.mongo_utils import (
     action_func_db,
     func_db
 )

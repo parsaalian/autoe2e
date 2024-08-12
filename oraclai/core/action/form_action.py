@@ -6,7 +6,7 @@ from oraclai.core.action.action import Action, ActionType
 from oraclai.core.action.element import Element
 from oraclai.core.browser.utils import get_element_xpath
 
-from oraclai.llm_guide.manual_ndd import FORBIDDEN_ACTIONS
+from autoe2e.manual_ndd import FORBIDDEN_ACTIONS
 
 
 class FormActionType(ActionType):
