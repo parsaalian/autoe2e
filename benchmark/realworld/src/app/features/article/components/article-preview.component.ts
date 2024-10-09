@@ -5,6 +5,8 @@ import { RouterLink } from "@angular/router";
 import { NgForOf } from "@angular/common";
 import { FavoriteButtonComponent } from "./favorite-button.component";
 
+import { logToServer } from "src/logger";
+
 @Component({
   selector: "app-article-preview",
   template: `
@@ -47,5 +49,9 @@ export class ArticlePreviewComponent {
     } else {
       this.article.favoritesCount--;
     }
+  }
+
+  log(value: string): void {
+    logToServer(value);
   }
 }

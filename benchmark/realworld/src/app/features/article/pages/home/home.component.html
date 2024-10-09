@@ -15,7 +15,7 @@
               <a
                 class="nav-link"
                 [ngClass]="{ active: listConfig.type === 'feed' }"
-                (click)="setListTo('feed')"
+                (click)="setListTo('feed'); log('c1-your-feed');"
               >
                 Your Feed
               </a>
@@ -26,7 +26,7 @@
                 [ngClass]="{
                   active: listConfig.type === 'all' && !listConfig.filters.tag
                 }"
-                (click)="setListTo('all')"
+                (click)="setListTo('all'); log('c2-global-feed');"
               >
                 Global Feed
               </a>
@@ -50,7 +50,7 @@
             @for (tag of tags; track tag) {
               <a
                 class="tag-default tag-pill"
-                (click)="setListTo('all', { tag: tag })"
+                (click)="setListTo('all', { tag: tag }); log('c3-tag');"
               >
                 {{ tag }}
               </a>

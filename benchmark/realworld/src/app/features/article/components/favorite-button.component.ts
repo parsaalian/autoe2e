@@ -14,6 +14,8 @@ import { UserService } from "../../../core/auth/services/user.service";
 import { Article } from "../models/article.model";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
+import { logToServer } from "src/logger";
+
 @Component({
   selector: "app-favorite-button",
   template: `
@@ -71,5 +73,9 @@ export class FavoriteButtonComponent {
         },
         error: () => (this.isSubmitting = false),
       });
+  }
+
+  log(value: string): void {
+    logToServer(value);
   }
 }

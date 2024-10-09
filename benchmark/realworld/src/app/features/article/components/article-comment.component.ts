@@ -6,6 +6,8 @@ import { map } from "rxjs/operators";
 import { Comment } from "../models/comment.model";
 import { AsyncPipe, DatePipe, NgIf } from "@angular/common";
 
+import { logToServer } from "src/logger";
+
 @Component({
   selector: "app-article-comment",
   template: `
@@ -55,4 +57,8 @@ export class ArticleCommentComponent {
         userData?.username === this.comment.author.username,
     ),
   );
+
+  log(value: string): void {
+    logToServer(value);
+  }
 }

@@ -10,6 +10,8 @@ import { RxLet } from "@rx-angular/template/let";
 import { IfAuthenticatedDirective } from "../../../../core/auth/if-authenticated.directive";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
+import { logToServer } from "src/logger";
+
 @Component({
   selector: "app-home-page",
   templateUrl: "./home.component.html",
@@ -67,5 +69,9 @@ export default class HomeComponent implements OnInit {
 
     // Otherwise, set the list object
     this.listConfig = { type: type, filters: filters };
+  }
+
+  log(value: string): void {
+    logToServer(value);
   }
 }

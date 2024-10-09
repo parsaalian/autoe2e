@@ -7,6 +7,8 @@ import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { LoadingState } from "../../../core/models/loading-state.model";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
+import { logToServer } from "src/logger";
+
 @Component({
   selector: "app-article-list",
   template: `
@@ -28,7 +30,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
               class="page-item"
               [ngClass]="{ active: pageNumber === currentPage }"
             >
-              <button class="page-link" (click)="setPageTo(pageNumber)">
+              <button class="page-link" (click)="setPageTo(pageNumber); log('c4-article-pagination');">
                 {{ pageNumber }}
               </button>
             </li>
@@ -94,5 +96,9 @@ export class ArticleListComponent {
           (val, index) => index + 1,
         );
       });
+  }
+
+  log(value: string): void {
+    logToServer(value);
   }
 }

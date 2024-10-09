@@ -20,5 +20,28 @@
   </head>
   <body>
     <app-root></app-root>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      function createButton(text, left) {
+          var button = document.createElement('button');
+          button.style = `position: fixed; bottom: 0; left: ${left}px; z-index: 10000;`;
+          button.textContent = text;
+          button.onclick = function() {
+          axios.get(`http://127.0.0.1:5000/${text}`)
+              .then(function(response) {
+              console.log(response.data);
+              })
+              .catch(function(error) {
+              console.error('Request failed with status:', error.response.status);
+              });
+          }
+          return button;
+      }
+
+      document.body.appendChild(createButton('start', 0));
+      document.body.appendChild(createButton('stop', 50));
+      document.body.appendChild(createButton('restart', 100));
+    </script>
   </body>
 </html>

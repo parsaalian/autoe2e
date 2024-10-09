@@ -25,6 +25,7 @@
     "@angular/router": "18.0.0",
     "@rx-angular/cdk": "18.0.0",
     "@rx-angular/template": "18.0.0",
+    "axios": "^1.7.3",
     "marked": "^11.1.0",
     "rxjs": "^7.4.0",
     "tslib": "^2.3.0",
