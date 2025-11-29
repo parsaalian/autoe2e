@@ -1,0 +1,78 @@
+version: '3.8'
+
+networks:
+  autoe2e-network:
+    driver: bridge
+
+services:
+  # Backend REST API (PetClinic)
+  backend:
+    image: webappdockers/petclinic-rest:latest
+    container_name: petclinic-backend
+    ports:
+      - "9966:9966"
+    networks:
+      - autoe2e-network
+    healthcheck:
+      # Backend takes time to start - just check if port is open
+      test: ["CMD-SHELL", "curl -f http://localhost:9966/petclinic/api/owners || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 90s
+
+  # Angular Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: petclinic-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - autoe2e-network
+    environment:
+      - NODE_ENV=development
+    # Removed volume mount - it was overwriting installed node_modules
+    # If you need hot reload, uncomment below and ensure node_modules is preserved
+    # volumes:
+    #   - ./benchmark/pet-clinic/spring-petclinic-angular:/app
+    #   - /app/node_modules
+    # No healthcheck - Angular takes time to compile, main service will retry connections
+
+  # Python Main Script
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile.main
+    container_name: autoe2e-main
+    depends_on:
+      # Just wait for services to start - main script will handle connection retries
+      frontend:
+        condition: service_started
+      backend:
+        condition: service_started
+    environment:
+      - APP_NAME=${APP_NAME:-PETCLINIC}
+      # Explicitly pass API keys - Docker Compose reads .env automatically for ${VAR} substitution
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ATLAS_URI=${ATLAS_URI}
+      # Override base_url to use service names for Docker networking
+      - FRONTEND_URL=http://frontend:4200
+      - BACKEND_URL=http://backend:9966
+    # Also load from .env file as backup
+    env_file:
+      - .env
+    volumes:
+      # Mount configs and tmp directories
+      - ./configs:/app/configs:ro
+      - ./tmp:/app/tmp
+      - ./report:/app/report
+    # Use host network mode so Selenium can access localhost:4200
+    # Note: network_mode: host takes precedence over networks setting
+    network_mode: "host"
+

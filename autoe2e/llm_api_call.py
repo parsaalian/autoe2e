@@ -48,8 +48,8 @@ def create_model_chain(model):
 
 gpt4o = ChatOpenAI(model="gpt-4o", max_tokens=256, temperature=0)
 gpt35 = ChatOpenAI(model="gpt-3.5-turbo", max_tokens=256, temperature=0)
-sonnet = ChatAnthropic(model="claude-3-5-sonnet-20240620", max_tokens=1024, temperature=0)
-haiku = ChatAnthropic(model="claude-3-haiku-20240307", max_tokens=1024, temperature=0)
+sonnet = ChatAnthropic(model="claude-sonnet-4-5-20250929", max_tokens=1024, temperature=0) #changed to latest because older verion of anthropic doesnt exist anymore and main is failing when ran since its accesing version of model that no longer exits
+haiku = ChatAnthropic(model="claude-haiku-4-5-20251001", max_tokens=1024, temperature=0)
 
 gpt4o_chain = create_model_chain(gpt4o)
 gpt35_chain = create_model_chain(gpt35)

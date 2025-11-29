@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+*.tmp
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Environment files (we'll use .env.example)
+.env
+.env.local
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Reports (will be mounted as volume)
+report/
+
+# Screenshots (will be in tmp/ which is mounted)
+*.png
+*.jpg
+
+# Archives
+.archive/
+*.zip
+*.tar.gz
+
+# Exclude other benchmark apps (we only need pet-clinic)
+benchmark/saleor/
+benchmark/ever-traduora/
+benchmark/taskcafe/
+benchmark/realworld/
+benchmark/dimeshift/
+benchmark/mantisbt/
+benchmark/_log-server/
+
+# Exclude large build artifacts from pet-clinic Angular app
+benchmark/pet-clinic/spring-petclinic-angular/node_modules/
+benchmark/pet-clinic/spring-petclinic-angular/.angular/
+benchmark/pet-clinic/spring-petclinic-angular/dist/
+benchmark/pet-clinic/spring-petclinic-angular/docs/
+benchmark/pet-clinic/spring-petclinic-angular/e2e/
+benchmark/pet-clinic/spring-petclinic-angular/.git/
+benchmark/pet-clinic/spring-petclinic-angular/.idea/
+benchmark/pet-clinic/spring-petclinic-angular/.vscode/
+benchmark/pet-clinic/spring-petclinic-angular/coverage/
+benchmark/pet-clinic/spring-petclinic-angular/yarn.lock
+benchmark/pet-clinic/spring-petclinic-angular/package-lock.json
+
+

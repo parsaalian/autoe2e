@@ -12,6 +12,7 @@ langchain-core
 langchain-experimental
 langchain-openai
 langchain-text-splitters
+langchain-anthropic #yet another missing dependency needed to make the anthropic model
 networkx==2.8.8
 # nltk==3.8.1
 notebook==7.2.0
@@ -24,6 +25,7 @@ pytesseract==0.3.10
 pytest==7.3.1
 python-dotenv==1.0.0
 PyYAML==6.0.1
+pymongo==4.6.3 #this was added newly was not a dependency before. Whenever main.py was run it was saying this dependency was missing.
 regex==2022.10.31
 rstr==3.2.2
 scipy
@@ -34,4 +36,4 @@ tiktoken
 tokenizers
 tqdm==4.65.0
 # transformers==4.26.1
-webdriver-manager==4.0.1
+webdriver-manager==4.0.2 #Change to verison 4.0.2 because 4.0.1 has a bug where it downloads chromedriver and returns wrong path

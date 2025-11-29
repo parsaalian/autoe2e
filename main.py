@@ -10,6 +10,7 @@ from autoe2e.mongo_utils import *
 from autoe2e.manual_ndd import *
 
 
+os.makedirs("tmp", exist_ok=True) #when we are extracting screenshot context they get stored in a tmp file but that isnt here when we clone repo adding this line to make sure tmp file always gets created
 APP_NAME = os.getenv('APP_NAME', 'PETCLINIC')
 
 

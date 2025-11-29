@@ -1,0 +1,28 @@
+# Dockerfile for Angular Frontend
+FROM node:18-alpine
+
+# Install wget for healthcheck
+RUN apk add --no-cache wget
+
+WORKDIR /app
+
+# Install Angular CLI globally (use version that matches Angular in package.json)
+RUN npm install -g @angular/cli@18.0.3
+
+# Copy only package.json (not package-lock.json - it will be regenerated)
+COPY benchmark/pet-clinic/spring-petclinic-angular/package.json ./
+
+# Install dependencies with legacy peer deps flag
+RUN npm install --legacy-peer-deps
+
+# Copy the rest of the Angular app
+# Note: node_modules is excluded via .dockerignore
+COPY benchmark/pet-clinic/spring-petclinic-angular/ ./
+
+# Expose port 4200
+EXPOSE 4200
+
+# Start the Angular dev server
+# Use --host 0.0.0.0 to allow access from outside the container
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--disable-host-check"]
+
